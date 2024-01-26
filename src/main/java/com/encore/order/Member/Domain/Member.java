@@ -1,9 +1,9 @@
 package com.encore.order.Member.Domain;
 
-import com.encore.order.Item.Domain.Role;
 import com.encore.order.Ordering.Domain.Ordering;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class Member {
     //PK
     @Id

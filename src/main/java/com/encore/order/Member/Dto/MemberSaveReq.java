@@ -1,6 +1,6 @@
 package com.encore.order.Member.Dto;
 
-import com.encore.order.Item.Domain.Role;
+import com.encore.order.Member.Domain.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

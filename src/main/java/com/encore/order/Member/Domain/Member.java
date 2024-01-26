@@ -39,6 +39,7 @@ public class Member {
 
     //회원 권환(관리자, 회원)
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     //생성시간

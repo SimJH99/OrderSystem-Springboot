@@ -6,9 +6,7 @@ import com.encore.order.Ordering.Dto.OrderReq;
 import com.encore.order.Ordering.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +31,7 @@ public class OrderController {
 
     @PostMapping("/order/new")
     @ResponseBody
-    public Ordering Order(OrderReq orderReq){
+    public Ordering Order(@RequestBody OrderReq orderReq){
         Ordering ordering = orderService.save(orderReq);
         return ordering;
     }

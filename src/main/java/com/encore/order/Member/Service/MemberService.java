@@ -5,6 +5,8 @@ import com.encore.order.Member.Domain.Role;
 import com.encore.order.Member.Dto.MemberListRes;
 import com.encore.order.Member.Dto.MemberSaveReq;
 import com.encore.order.Member.Repository.MemberRepository;
+import com.encore.order.Ordering.Domain.Ordering;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.stereotype.Service;
@@ -29,13 +31,14 @@ public class MemberService {
 
     //회원가입 서비스
     public void memberSave(MemberSaveReq memberSaveReq) {
+        List<Ordering> orderings = new ArrayList<>();
         Member member = Member.builder()
                 .name(memberSaveReq.getName())
                 .email(memberSaveReq.getEmail())
                 .role(memberSaveReq.getRole())
                 .address(memberSaveReq.getAddress())
                 .password(memberSaveReq.getPassword())
-                .orderings(new ArrayList<>())
+                .orderings(orderings)
                 .build();
         memberRepository.save(member);
     }

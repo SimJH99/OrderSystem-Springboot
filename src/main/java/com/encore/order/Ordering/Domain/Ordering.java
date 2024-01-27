@@ -24,10 +24,11 @@ public class Ordering {
 
     //회원 객체
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = false, name = "member_id")
     private Member member;
 
     //주문 상태
+    @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     //생성 시간

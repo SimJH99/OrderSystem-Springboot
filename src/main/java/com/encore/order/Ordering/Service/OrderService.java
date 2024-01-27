@@ -14,23 +14,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.OptionalDouble;
 
 @Service
+@Transactional
 public class OrderService {
     private final OrderRepository orderRepository;
-
     private final OrderItemService orderItemService;
-    private final MemberService memberService;
+    private final MemberRepository memberRepository;
 
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, OrderItemService orderItemService, MemberService memberService) {
+    public OrderService(OrderRepository orderRepository, OrderItemService orderItemService, MemberRepository memberRepository) {
         this.orderRepository = orderRepository;
         this.orderItemService = orderItemService;
-        this.memberService = memberService;
+        this.memberRepository = memberRepository;
     }
 
     public Ordering findById(Long id){
@@ -55,11 +56,7 @@ public class OrderService {
 
     public Ordering save(OrderReq orderReq) {
         //주문시 ordering테이블 1건 insert 및 상태 값 ORDERED세팅
-        if (orderReq.getMemberId() == null) {
-            // 적절한 처리를 수행하거나 예외를 던집니다.
-            throw new IllegalArgumentException("Member ID must not be null");
-        }
-        Member member = memberService.findById(orderReq.getMemberId());
+        Member member = memberRepository.findById(orderReq.getMemberId()).orElseThrow(EntityNotFoundException::new);
         Ordering ordering = Ordering.builder()
                 .member(member)
                 .orderStatus(OrderStatus.ORDERED)

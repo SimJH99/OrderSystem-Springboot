@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 public class MemberController {
 
     private final MemberService memberService;
@@ -24,7 +24,7 @@ public class MemberController {
     //회원가입
     @PostMapping("/member/create")
     @ResponseBody
-    public String MemberSave(MemberSaveReq memberSaveReq){
+    public String MemberSave(@RequestBody MemberSaveReq memberSaveReq){
         memberService.memberSave(memberSaveReq);
         return "Ok";
     }
@@ -37,7 +37,7 @@ public class MemberController {
         return members;
     }
 
-    @GetMapping("/member/find/{id}")
+    @PostMapping("/member/find/{id}")
     @ResponseBody
     public Member memberFind(@PathVariable Long id){
         return memberService.findById(id);

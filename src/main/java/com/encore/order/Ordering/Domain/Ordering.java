@@ -3,6 +3,7 @@ package com.encore.order.Ordering.Domain;
 import com.encore.order.Member.Domain.Member;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -14,11 +15,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Getter
 public class Ordering {
     //PK
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "ordering_id")
     private Long id;
 
     //회원 객체
@@ -33,7 +34,7 @@ public class Ordering {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
-    //수정 시간
+    //수정 시간 : 상품 취소할때 update기록
     @UpdateTimestamp
     private LocalDateTime updatedTime;
 }

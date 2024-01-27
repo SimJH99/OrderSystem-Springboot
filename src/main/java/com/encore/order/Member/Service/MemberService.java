@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,12 @@ public class MemberService {
     public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
-    
+
+    public Member findById(Long id){
+        Member member = memberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        return member;
+    }
+
     //회원가입 서비스
     public void memberSave(MemberSaveReq memberSaveReq) {
         Member member = Member.builder()
@@ -34,6 +40,7 @@ public class MemberService {
         memberRepository.save(member);
     }
 
+    //회원 목록 조회
     public List<MemberListRes> findAll(MemberListRes memberListRes) {
         List<Member> members = memberRepository.findAll();
         List<MemberListRes> memberListResList = new ManagedList<>();

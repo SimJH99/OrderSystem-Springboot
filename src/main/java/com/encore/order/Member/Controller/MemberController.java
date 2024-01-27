@@ -6,13 +6,11 @@ import com.encore.order.Member.Dto.MemberSaveReq;
 import com.encore.order.Member.Service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MemberController {
 
     private final MemberService memberService;
@@ -37,5 +35,11 @@ public class MemberController {
     public List<MemberListRes> MemberList(MemberListRes memberListRes){
         List<MemberListRes> members = memberService.findAll(memberListRes);
         return members;
+    }
+
+    @GetMapping("/member/find/{id}")
+    @ResponseBody
+    public Member memberFind(@PathVariable Long id){
+        return memberService.findById(id);
     }
 }

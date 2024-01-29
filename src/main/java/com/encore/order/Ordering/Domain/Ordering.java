@@ -38,4 +38,8 @@ public class Ordering {
     //수정 시간 : 상품 취소할때 update기록
     @UpdateTimestamp
     private LocalDateTime updatedTime;
+
+    public void OrderCanceled(){
+        this.orderStatus = OrderStatus.CANCELED;
+    }
 }

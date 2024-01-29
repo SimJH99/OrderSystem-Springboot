@@ -2,6 +2,7 @@ package com.encore.order.Member.Service;
 
 import com.encore.order.Member.Domain.Member;
 import com.encore.order.Member.Domain.Role;
+import com.encore.order.Member.Dto.MemberFindRes;
 import com.encore.order.Member.Dto.MemberListRes;
 import com.encore.order.Member.Dto.MemberSaveReq;
 import com.encore.order.Member.Repository.MemberRepository;
@@ -15,6 +16,7 @@ import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -27,6 +29,19 @@ public class MemberService {
     public Member findById(Long id){
         Member member = memberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         return member;
+    }
+
+    public MemberFindRes findDetail(Long id){
+        Member member = memberRepository.findById(id).orElseThrow(EntityNotFoundException::new);
+        MemberFindRes memberFindRes = MemberFindRes.builder()
+                .id(member.getId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .createdTime(member.getCreatedTime())
+                .orderCount(member.getOrderings().size())
+                .build();
+        return memberFindRes;
     }
 
     //회원가입 서비스

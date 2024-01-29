@@ -11,7 +11,7 @@ public class OrderListReq {
 
     private Long id;
 
-    private Member member;
+    private Long memberId;
 
     private String orderStatus;
 

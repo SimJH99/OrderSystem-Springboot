@@ -19,11 +19,4 @@ public class OrderItemController {
         this.orderItemService = orderItemService;
     }
 
-    //주문시 orderItem에 저장될려면 컨트롤러를 동작하도록 하고
-    @GetMapping("/orderitems/save")
-    @ResponseBody
-    public String orderItemSave(Ordering ordering){
-
-        return "ok";
-    }
 }

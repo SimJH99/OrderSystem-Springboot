@@ -42,4 +42,12 @@ public class Item {
     //수정 시간
     @UpdateTimestamp
     private LocalDateTime updatedTime;
+
+    public void orderedQuantity (int stockQuantity){
+        this.stockQuantity = this.stockQuantity - stockQuantity;
+    }
+
+    public void cancledQuantity (int stockQuantity){
+        this.stockQuantity = this.stockQuantity + stockQuantity;
+    }
 }

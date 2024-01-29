@@ -1,6 +1,7 @@
 package com.encore.order.Member.Controller;
 
 import com.encore.order.Member.Domain.Member;
+import com.encore.order.Member.Dto.MemberFindRes;
 import com.encore.order.Member.Dto.MemberListRes;
 import com.encore.order.Member.Dto.MemberSaveReq;
 import com.encore.order.Member.Service.MemberService;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MemberController {
 
     private final MemberService memberService;
@@ -23,7 +24,6 @@ public class MemberController {
 
     //회원가입
     @PostMapping("/member/create")
-    @ResponseBody
     public String MemberSave(@RequestBody MemberSaveReq memberSaveReq){
         memberService.memberSave(memberSaveReq);
         return "Ok";
@@ -31,15 +31,14 @@ public class MemberController {
 
     //회원 목록 조회
     @GetMapping("/member/list")
-    @ResponseBody
     public List<MemberListRes> MemberList(MemberListRes memberListRes){
         List<MemberListRes> members = memberService.findAll(memberListRes);
         return members;
     }
 
-    @PostMapping("/member/find/{id}")
-    @ResponseBody
-    public Member memberFind(@PathVariable Long id){
-        return memberService.findById(id);
+    @GetMapping("/member/find/{id}")
+    public MemberFindRes memberFind(@PathVariable Long id){
+        MemberFindRes memberFindRes = memberService.findDetail(id);
+        return memberFindRes;
     }
 }

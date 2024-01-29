@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@RestController
 public class OrderController {
 
     private final OrderService orderService;
@@ -23,16 +23,22 @@ public class OrderController {
 
     //주문목록조회
     @GetMapping("/orders")
-    @ResponseBody
     public List<OrderListReq> orderList(OrderListReq orderListReq){
         List<OrderListReq> orderListReqs = orderService.orderList(orderListReq);
         return orderListReqs;
     }
 
+    //주문등록
     @PostMapping("/order/new")
-    @ResponseBody
-    public Ordering Order(@RequestBody OrderReq orderReq){
-        Ordering ordering = orderService.save(orderReq);
-        return ordering;
+    public String orderNew(@RequestBody OrderReq orderReq){
+        orderService.save(orderReq);
+        return "Ok";
+    }
+    
+    //주문취소
+    @PostMapping("/order/{id}/cancel")
+    public String orderCancel(@PathVariable Long id){
+        orderService.orderCancel(id);
+        return "cancel complete";
     }
 }

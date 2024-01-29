@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
-public class OrderReq {
-    private Long memberId;
+@AllArgsConstructor
+@Builder
+public class OrderCancelRes {
+    private Long id;
     private List<Long> itemId;
     private List<Long> count;
 }

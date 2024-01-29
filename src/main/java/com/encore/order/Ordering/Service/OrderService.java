@@ -1,19 +1,15 @@
 package com.encore.order.Ordering.Service;
 
 import com.encore.order.Member.Domain.Member;
-import com.encore.order.Member.Repository.MemberRepository;
 import com.encore.order.Member.Service.MemberService;
 import com.encore.order.OrderItem.Service.OrderItemService;
 import com.encore.order.Ordering.Domain.OrderStatus;
 import com.encore.order.Ordering.Domain.Ordering;
-import com.encore.order.Ordering.Dto.OrderCancelRes;
 import com.encore.order.Ordering.Dto.OrderListReq;
 import com.encore.order.Ordering.Dto.OrderReq;
 import com.encore.order.Ordering.Repository.OrderRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -75,8 +71,8 @@ public class OrderService {
     public void orderCancel(Long id) {
         Ordering ordering = orderRepository.findById(id).orElseThrow(EntityNotFoundException::new);
         ordering.OrderCanceled();
-        Long orderId = ordering.getId();
 
+        Long orderId = ordering.getId();
         orderItemService.cancel(orderId);
     }
 }

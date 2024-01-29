@@ -3,6 +3,7 @@ package com.encore.order.OrderItem.Service;
 import com.encore.order.Item.Domain.Item;
 import com.encore.order.Item.Repository.ItemRepository;
 import com.encore.order.OrderItem.Domain.OrderItem;
+import com.encore.order.OrderItem.Dto.OrderItemListRes;
 import com.encore.order.OrderItem.Repository.OrderItemRepository;
 import com.encore.order.Ordering.Domain.Ordering;
 import com.encore.order.Ordering.Repository.OrderRepository;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -47,9 +50,26 @@ public class OrderItemService {
         }
     }
 
+    //주문취소
     public void cancel(Long orderId) {
+        List<OrderItem> orderItems = orderItemRepository.findAllByOrderingId(orderId);
+        for(OrderItem o : orderItems){
+            Item item = itemRepository.findById(o.getId()).orElseThrow(EntityNotFoundException::new);
+            item.cancledQuantity(o.getQuantity());
+        }
+    }
 
-
-
+    //주문 번호에 맞는 주문상품조회리스트
+    public List<OrderItemListRes> orderItemList(Long id) {
+        List<OrderItem> orderItems = orderItemRepository.findAllByOrderingId(id);
+        List<OrderItemListRes> orderItemListRes = new ArrayList<>();
+        for(OrderItem o : orderItems){
+            OrderItemListRes orderItemListRes1 = new OrderItemListRes();
+            orderItemListRes1.setOrderId(o.getOrdering().getId());
+            orderItemListRes1.setItmeId(o.getItem().getId());
+            orderItemListRes1.setCount(o.getQuantity());
+            orderItemListRes.add(orderItemListRes1);
+        }
+        return orderItemListRes;
     }
 }

@@ -39,6 +39,7 @@ public class MemberService {
                 .email(member.getEmail())
                 .password(member.getPassword())
                 .createdTime(member.getCreatedTime())
+                .role(member.getRole())
                 .orderCount(member.getOrderings().size())
                 .build();
         return memberFindRes;

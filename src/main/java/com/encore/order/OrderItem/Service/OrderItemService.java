@@ -54,7 +54,7 @@ public class OrderItemService {
     public void cancel(Long orderId) {
         List<OrderItem> orderItems = orderItemRepository.findAllByOrderingId(orderId);
         for(OrderItem o : orderItems){
-            Item item = itemRepository.findById(o.getId()).orElseThrow(EntityNotFoundException::new);
+            Item item = itemRepository.findById(o.getItem().getId()).orElseThrow(EntityNotFoundException::new);
             item.cancledQuantity(o.getQuantity());
         }
     }
@@ -64,10 +64,11 @@ public class OrderItemService {
         List<OrderItem> orderItems = orderItemRepository.findAllByOrderingId(id);
         List<OrderItemListRes> orderItemListRes = new ArrayList<>();
         for(OrderItem o : orderItems){
-            OrderItemListRes orderItemListRes1 = new OrderItemListRes();
-            orderItemListRes1.setOrderId(o.getOrdering().getId());
-            orderItemListRes1.setItmeId(o.getItem().getId());
-            orderItemListRes1.setCount(o.getQuantity());
+            OrderItemListRes orderItemListRes1 = OrderItemListRes.builder()
+                    .orderId(o.getOrdering().getId())
+                    .itemId(o.getItem().getId())
+                    .count(o.getQuantity())
+                    .build();
             orderItemListRes.add(orderItemListRes1);
         }
         return orderItemListRes;

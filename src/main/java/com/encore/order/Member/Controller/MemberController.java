@@ -5,6 +5,7 @@ import com.encore.order.Member.Dto.MemberFindRes;
 import com.encore.order.Member.Dto.MemberListRes;
 import com.encore.order.Member.Dto.MemberSaveReq;
 import com.encore.order.Member.Service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -36,6 +37,7 @@ public class MemberController {
         return members;
     }
 
+    //특정 회원 조회
     @GetMapping("/member/find/{id}")
     public MemberFindRes memberFind(@PathVariable Long id){
         MemberFindRes memberFindRes = memberService.findDetail(id);

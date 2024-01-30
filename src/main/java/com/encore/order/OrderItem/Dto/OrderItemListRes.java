@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderItemListRes {
     private Long orderId;
-    private Long itmeId;
+    private Long itemId;
     private int count;
 }

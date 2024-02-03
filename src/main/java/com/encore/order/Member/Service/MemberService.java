@@ -13,11 +13,13 @@ import org.springframework.beans.factory.support.ManagedList;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
+@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
 
